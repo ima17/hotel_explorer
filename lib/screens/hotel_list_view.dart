@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_explorer/constants/styles_constants.dart';
 
 import '../models/hotel_data.dart';
 import '../services/hotel_data_service.dart';
@@ -42,16 +43,11 @@ class HotelListViewState extends State<HotelListView> {
                       ),
                       title: Text(
                         snapshot.data![index].title,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
+                        style: kHeaderTextStyle,
                       ),
                       subtitle: Text(
                         snapshot.data![index].address,
-                        style: const TextStyle(
-                          fontStyle: FontStyle.italic,
-                        ),
+                        style: kSubtitleTextStyle,
                       ),
                       trailing: const Icon(Icons.arrow_forward_ios),
                       onTap: () {

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_explorer/constants/styles_constants.dart';
 import 'package:hotel_explorer/widgets/map_view.dart';
 
 import '../models/hotel_data.dart';
@@ -28,33 +30,43 @@ class HotelDetailView extends StatelessWidget {
         ],
       ),
       body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Image.network(
-          "https://cdn.pixabay.com/photo/2021/12/11/07/59/hotel-6862159_1280.jpg",
-          fit: BoxFit.cover,
-        ),
-        const SizedBox(height: 8.0), 
-        Text(
-          hotel.title,
-          style: const TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CachedNetworkImage(
+            fit: BoxFit.cover,
+            height: 300,
+            imageUrl: hotel.image['large'] ?? '',
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ), 
+            errorWidget: (context, url, error) => Image.asset(
+              "assets/images/placeholder.jpg",
+              fit: BoxFit.cover,
+              height: 300,
+            ),
           ),
-        ),
-        const SizedBox(height: 4.0), 
-        Text(
-          hotel.description,
-          style: const TextStyle(
-            fontSize: 12.0,
-            color: Colors.grey,
+          const SizedBox(
+            height: 10,
           ),
-        ),
-      ],
-    ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              hotel.title,
+              style: kHeaderTextStyle,
+            ),
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              hotel.description,
+              style: kSubtitleTextStyle,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
-
-
